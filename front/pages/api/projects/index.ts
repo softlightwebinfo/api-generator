@@ -17,6 +17,11 @@ export default function handler(req, res) {
     let generateTemplate = fs.readFileSync(`${settings.template}/initial/main.txt`, 'utf8')
     let routerInitial = fs.readFileSync(`${settings.template}/initial/router.json`, 'utf8')
     let controller = fs.readFileSync(`${settings.template}/controller.txt`, 'utf8')
+    const routeSettingApp = `${settings.settings.app}/${appNameSerialize}`
+
+    fs.mkdir(routeSettingApp, () => {
+        fs.writeFile(`${routeSettingApp}/router.json`, routerInitial, () => console.log("GENERATE ROUTE"));
+    });
 
     fs.mkdirSync(appName);
     fs.mkdirSync(`${appName}/controllers`);

@@ -1,4 +1,7 @@
 export const settings = {
     template: "../front/src/templates",
-    API: "../api"
+    API: "../api",
+    settings: {
+        app: "./src/settings/apps"
+    }
 };
