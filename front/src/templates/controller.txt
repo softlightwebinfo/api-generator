@@ -1,0 +1,9 @@
+package controllers
+
+import "github.com/gin-gonic/gin"
+
+func {name}() gin.HandlerFunc {
+	return func(c *gin.Context) {
+        c.String(200, "pong")
+	}
+}

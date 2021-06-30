@@ -1,0 +1,14 @@
+[
+  {
+    "routeName": "Index",
+    "route": "/",
+    "method": "GET",
+    "type": "list"
+  },
+  {
+    "routeName": "Home",
+    "route": "/home",
+    "method": "GET",
+    "type": "list"
+  }
+]
