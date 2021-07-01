@@ -13,7 +13,6 @@ import (
 var dbMap = initDb()
 
 func main() {
-    godotenv.Load()
 	r := gin.Default()
     //->generate
 {generate}
@@ -42,5 +41,6 @@ func initDb() *sql.DB {
 // use godot package to load/read the .env file and
 // return the value of the key
 func goDotEnvVariable(key string) string {
-  return os.Getenv(key)
+    godotenv.Load()
+    return os.Getenv(key)
 }
