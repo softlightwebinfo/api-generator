@@ -10,11 +10,5 @@
     "route": "/home",
     "method": "GET",
     "type": "list"
-  },
-  {
-    "routeName": "Users",
-    "route": "/users",
-    "method": "GET",
-    "type": "LIST"
   }
 ]

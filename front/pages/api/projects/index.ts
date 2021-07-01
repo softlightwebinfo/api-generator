@@ -1,5 +1,8 @@
 import fs from 'fs';
 import {settings} from "../../../src/settings";
+import {generateMain} from "../../../src/libs/generateMain";
+import {generateDirectories} from "../../../src/libs/generateDirectories";
+import {generateRouter} from "../../../src/libs/generateRouter";
 
 const {exec, execSync} = require("child_process");
 
@@ -14,40 +17,9 @@ export default function handler(req, res) {
         return res.status(404).json({});
     }
 
-    let generateTemplate = fs.readFileSync(`${settings.template}/initial/main.txt`, 'utf8')
-    let routerInitial = fs.readFileSync(`${settings.template}/initial/router.json`, 'utf8')
-    let controller = fs.readFileSync(`${settings.template}/controller.txt`, 'utf8')
-    const routeSettingApp = `${settings.settings.app}/${appNameSerialize}`
-
-    fs.mkdir(routeSettingApp, () => {
-        fs.writeFile(`${routeSettingApp}/router.json`, routerInitial, () => console.log("GENERATE ROUTE"));
-    });
-
-    fs.mkdirSync(appName);
-    fs.mkdirSync(`${appName}/controllers`);
-    fs.mkdirSync(`${appName}/routes`);
-    fs.mkdirSync(`${appName}/repository`);
-
-    const routeInitialRS = JSON.parse(routerInitial).map(item => {
-        return `\tr.${item.method}("${item.route}", controllers.${item.routeName}())`;
-    }).join("\n");
-
-    generateTemplate = generateTemplate.replace('{generate}', routeInitialRS);
-
-    if (routerInitial) {
-        generateTemplate = generateTemplate.replace("{libraries}", `"${appNameSerialize}/controllers"`)
-    }
-
-    fs.writeFileSync(`${appName}/main.go`, generateTemplate);
-
-    JSON.parse(routerInitial).forEach(item => {
-        let data = controller;
-        data = data.replace("{name}", item.routeName);
-
-        fs.writeFile(`${appName}/controllers/${item.routeName}.go`, data, () => {
-
-        });
-    })
+    generateDirectories(appName);
+    generateMain(appName, appNameSerialize);
+    generateRouter(appName, appNameSerialize);
 
     exec(`cd ${appName} &&  go mod init ${appNameSerialize} && go mod tidy`, (error, stdout, stderr) => {
         if (error) {
