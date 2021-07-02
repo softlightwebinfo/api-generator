@@ -1,0 +1,7 @@
+package libs
+
+{libraries}
+
+func {name} ({args}){return}{
+{children}
+}

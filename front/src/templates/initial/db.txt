@@ -1,0 +1,23 @@
+package libs
+
+import (
+	"database/sql"
+	_ "github.com/lib/pq"
+	"fmt"
+)
+
+func InitDb() *sql.DB {
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		GoDotEnvVariable("DB_HOST"),
+		GoDotEnvVariable("DB_PORT"),
+		GoDotEnvVariable("DB_USER"),
+		GoDotEnvVariable("DB_PASSWORD"),
+		GoDotEnvVariable("DB_NAME"),
+	)
+	db, err := sql.Open(GoDotEnvVariable("DB_DRIVER"), psqlInfo)
+	if err != nil {
+		panic(err)
+	}
+	return db
+}

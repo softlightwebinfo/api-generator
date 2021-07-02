@@ -1,0 +1,11 @@
+package libs
+
+import (
+	"github.com/joho/godotenv"
+	"os"
+)
+
+func GoDotEnvVariable(key string) string {
+    godotenv.Load()
+    return os.Getenv(key)
+}

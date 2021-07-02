@@ -3,6 +3,7 @@ import {settings} from "../../../src/settings";
 import {generateMain} from "../../../src/libs/generateMain";
 import {generateDirectories} from "../../../src/libs/generateDirectories";
 import {generateRouter} from "../../../src/libs/generateRouter";
+import {generateLibs} from "../../../src/libs/generateLibs";
 
 const {exec, execSync} = require("child_process");
 
@@ -19,6 +20,7 @@ export default function handler(req, res) {
 
     generateDirectories(appName);
     generateMain(appName, appNameSerialize);
+    generateLibs(appName, appNameSerialize);
     generateRouter(appName, appNameSerialize);
 
     exec(`cd ${appName} &&  go mod init ${appNameSerialize} && go mod tidy`, (error, stdout, stderr) => {

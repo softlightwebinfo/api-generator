@@ -16,7 +16,7 @@ export function generateMain(appName: string, appNameSerialize: string) {
     if (routerInitial) {
         generateTemplate = generateTemplate.replace(
             "{libraries}",
-            `"${appNameSerialize}/controllers"\n${librariesInitial}`
+            `"${appNameSerialize}/controllers"\n\t"${appNameSerialize}/libs"\n${librariesInitial}`
         )
     }
 
