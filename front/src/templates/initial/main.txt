@@ -9,6 +9,8 @@ var dbMap = libs.InitDb()
 
 func main() {
 	r := gin.Default()
+    routes.CustomRouter(r)
+	routes.GeneratedRouter(r)
     //->generate
 {generate}
     //->endGenerate
